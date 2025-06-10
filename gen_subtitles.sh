@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # sample usage: ./gen_subtitles.sh "path/to/audio.mp3"
 
+set -e
+set -o pipefail
+
+
 file_name="$1"
 
 if [ -z file_name ]; then
