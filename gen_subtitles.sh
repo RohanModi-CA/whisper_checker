@@ -53,7 +53,7 @@ while IFS= read -r filename && IFS= read -r source_start_time; do
 
 	#echo $whisper_command
 	#sleep 4
-	$(whisper_command)
+	eval "$whisper_command"
 
 	# Once whisper is done, we will clean that up.
 	./clean_vtt.sh ${filename}_init.vtt
@@ -84,7 +84,7 @@ while IFS= read -r filename && IFS= read -r source_start_time; do
 		whisper_temp_command="whisper '$temp_splice_filename' --model large-v3 --task transcribe --language fr --output_format srt > ${temp_splice_vtt}"
 		#echo $whisper_temp_command
 		#sleep 4
-		$(whisper_temp_command)
+		eval "$whisper_temp_command"
 
 		# Clean it.
 		./clean_vtt.sh ${temp_splice_vtt}
