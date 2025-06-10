@@ -28,7 +28,7 @@ if [[ ! -f "$INPUT_FILE" ]]; then
 fi
 
 # A simple regex to check if the offset looks like a time string
-if ! [[ "$OFFSET_TIME" =~ ^([0-9]{2}:)?[0-9]{2}:[0-9]{2}\.[0-9]{3}$ ]]; then
+if ! [[ "$OFFSET_TIME" =~ ^([0-9]{1,2}:)?[0-9]{1,2}:[0-9]{2}\.[0-9]{3}$ ]]; then
     echo "Error: Offset time format appears invalid. Use HH:MM:SS.ms or MM:SS.ms"
     echo "You provided: '$OFFSET_TIME'"
     exit 1

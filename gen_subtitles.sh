@@ -47,11 +47,27 @@ fi
 manifest_filename="processed/${just_filename}_manifest.json"
 
 
+# Get the total number of items to process
+total_items=$(jq -r '. | length' "$manifest_filename")
+current_item=0
+
 # Iterate over each object in the JSON array and extract both filename and source_start_time
 jq -r '.[] | .filename, .source_start_time' "$manifest_filename" | \
 while IFS= read -r filename && IFS= read -r source_start_time; do
 	filename="processed/${filename}"
 	source_start_vtt_time=$(./to_vtt_time.sh ${source_start_time})
+
+
+	current_item=$((current_item + 1))
+    progress_percentage=$(awk "BEGIN {printf \"%.2f\", ($current_item / $total_items) * 100}")
+
+	echo && echo && echo && echo
+	echo ==================================
+    echo "Processing item $current_item of $total_items ($progress_percentage%)"
+	echo ==================================
+
+
+
     echo "  Filename: $filename"
     echo "  Source Start Time: $source_start_time seconds $source_start_vtt_time vtt."
 	
