@@ -13,9 +13,9 @@ import json
 
 # --- Configuration ---
 # How quiet does it need to be to be considered "silent"? -30dB is a good starting point.
-SILENCE_DB = "-30dB"
+SILENCE_DB = "-20dB"
 # How long does the silence need to last to be a valid split point? 0.5 seconds is reasonable.
-SILENCE_DURATION = "0.25"
+SILENCE_DURATION = "0.15"
 
 
 def run_command(command):
@@ -104,7 +104,11 @@ def split_audio(input_file, target_duration_sec, output_dir, silences, total_dur
             if best_silence:
                 split_point = best_silence[0] + (best_silence[1] - best_silence[0]) / 2
             else:
-                split_point = total_duration
+                # If no silence is found, just do a hard cut at the target time
+                # instead of going to the very end.
+                print("-> WARNING: No suitable silence found in the remaining audio. Performing hard cut.")
+                split_point = target_split_time
+            # --- MODIFICATION END ---
 
         if split_point - current_pos < 1.0:
             break
