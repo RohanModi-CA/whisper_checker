@@ -105,7 +105,7 @@ while IFS= read -r filename && IFS= read -r source_start_time; do
 	done
 
 	# Now, we move it forward.
-	./shift_vtt ${filename}_init.vtt "${source_start_vtt_time}"
+	./shift_vtt.sh ${filename}_init.vtt "${source_start_vtt_time}"
 
 	# Put it at the end of the output.
 	cat ${filename}_init.vtt >> processed/${just_filename}.vtt
