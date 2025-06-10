@@ -36,7 +36,9 @@ just_filename="${filename_with_extension%.*}"
 cd funcs
 
 # Ensure we don't have a dirty file tree.
-rm processed/*
+if [ -z "ls -A processed/" ]; then
+	rm processed/*
+fi
 
 # First, we are going to split our audio file into its corresponding segments.
 ./split_audio.sh $file_name 5
