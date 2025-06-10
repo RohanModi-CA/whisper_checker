@@ -3,7 +3,7 @@
 
 file_name="$1"
 
-if [ -z file_name]; then
+if [ -z file_name ]; then
 	echo "Error: need to pass a filename."
 	exit 1
 fi
