@@ -3,7 +3,12 @@
 
 set -e
 set -o pipefail
+#
+# Get the directory of the script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Use SCRIPT_DIR as the base for relative paths
+cd "$SCRIPT_DIR"
 
 file_name="$1"
 
